@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-import django_heroku
+import django_on_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-yjd^lgq2=9nzct-$iim_5gbve95s@%cpl-m(!pz-l5d!zp9h)(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://back-app-pln.herokuapp.com/']
 
 
 # Application definition
@@ -133,4 +133,4 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
 ]
 
-django_heroku.settings(locals())
+django_on_heroku.settings(locals())

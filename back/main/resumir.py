@@ -8,9 +8,11 @@ from nltk.probability import FreqDist
 from collections import defaultdict
 from heapq import nlargest
 import re
-stopwords = set(stopwords.words('portuguese') + list(punctuation))
+import nltk
+nltk.download('stopwords')
+stopwords1 = set(stopwords.words('portuguese') + list(punctuation))
 
-def resumir(link,stopwords):
+def resumir(link,stopwords1):
     try:
         link = Request(link,
                     headers={'User-Agent': ""})
@@ -28,10 +30,10 @@ def resumir(link,stopwords):
         palavras = word_tokenize(texto.lower())
         
         
-        palavras_sem_stopwords = [palavra for palavra in palavras if palavra not in stopwords]
+        palavras_sem_stopwords = [palavra for palavra in palavras if palavra not in stopwords1]
         palavras_sem=[]
         for w in palavras:
-            if w not in stopwords:
+            if w not in stopwords1:
                 palavras_sem.append(w)
         
         frequencia = FreqDist(palavras_sem_stopwords)
