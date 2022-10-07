@@ -2,17 +2,20 @@ from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import sent_tokenize
-from nltk.corpus import stopwords
 from string import punctuation
 from nltk.probability import FreqDist
 from collections import defaultdict
 from heapq import nlargest
-import re
-import nltk
-nltk.download('stopwords')
-stopwords1 = set(stopwords.words('portuguese') + list(punctuation))
 
-def resumir(link,stopwords1):
+import nltk
+
+nltk.download('stopwords')
+
+from nltk.corpus import stopwords
+
+stopwords = set(stopwords.words('portuguese') + list(punctuation))
+
+def resumir(link,stopwords):
     try:
         link = Request(link,
                     headers={'User-Agent': ""})
@@ -30,10 +33,10 @@ def resumir(link,stopwords1):
         palavras = word_tokenize(texto.lower())
         
         
-        palavras_sem_stopwords = [palavra for palavra in palavras if palavra not in stopwords1]
+        palavras_sem_stopwords = [palavra for palavra in palavras if palavra not in stopwords]
         palavras_sem=[]
         for w in palavras:
-            if w not in stopwords1:
+            if w not in stopwords:
                 palavras_sem.append(w)
         
         frequencia = FreqDist(palavras_sem_stopwords)
