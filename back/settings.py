@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from distutils.debug import DEBUG
 from email.policy import default
 from pathlib import Path
 import django_on_heroku
@@ -30,7 +31,10 @@ SECRET_KEY = 'django-insecure-yjd^lgq2=9nzct-$iim_5gbve95s@%cpl-m(!pz-l5d!zp9h)(
 
 DEBUG = config('DEBUG', cast=bool,default=False)
 
-ALLOWED_HOSTS = ['https://back-app-pln.herokuapp.com/']
+ALLOWED_HOSTS = ['https://back-app-pln.herokuapp.com/',
+"http://localhost:4200/",
+"http://127.0.0.1:8000/","*",
+]
 
 
 # Application definition

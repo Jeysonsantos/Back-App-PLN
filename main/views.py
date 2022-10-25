@@ -1,21 +1,20 @@
-
+from rest_framework.decorators import action,api_view
 from .resumir import resumir
-from .models import Texto
 from rest_framework import viewsets
 from .serializers import TextoSerializer
 from rest_framework.response import Response
 
 
-class TextoViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Texto.objects.all()
-    serializer_class = TextoSerializer
+class TextoViewSet(viewsets.GenericViewSet):
+    queryset=[]
 
-    def create(self, request):
-        request.data['resumo'] = resumir(request.data['link'])
-        serializer= TextoSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        else:
-            return Response(serializer.errors)
+@api_view(['post'])
+
+def create(request):
+    request.data['resumo'] = resumir(request.data['link'])
+    serializer= TextoSerializer(data=request.data)
+    if serializer.is_valid():
+        return Response(serializer.data)
+    else:
+        return Response(serializer.errors)
 
