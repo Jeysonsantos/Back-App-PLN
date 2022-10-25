@@ -1,4 +1,3 @@
-from copyreg import remove_extension
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 from nltk.tokenize import word_tokenize
@@ -26,6 +25,7 @@ def resumir(link1):
                 full_text.append(texto[i].get_text() + "\n\n")
             for i in full_text:
                 texto1=texto1+i
+            print(texto1)
 
         elif("bbc" in link1):
             for paragraph in soup.select('main'):
@@ -116,4 +116,4 @@ link2="https://g1.globo.com/al/alagoas/eleicoes/2022/noticia/2022/10/20/ipec-em-
 
 link3="https://noticias.r7.com/eleicoes-2022/fachin-nega-liminar-de-aras-para-derrubar-resolucao-que-da-poder-a-moraes-para-remover-postagens-22102022"
 
-resumir(link3)
+resumir(link)
