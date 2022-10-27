@@ -4,10 +4,8 @@ from rest_framework import viewsets
 from .serializers import TextoSerializer
 from rest_framework.response import Response
 
-
 class TextoViewSet(viewsets.GenericViewSet):
     queryset=[]
-
 @api_view(['post'])
 
 def create(request):
@@ -18,3 +16,6 @@ def create(request):
     else:
         return Response(serializer.errors)
 
+
+
+    
