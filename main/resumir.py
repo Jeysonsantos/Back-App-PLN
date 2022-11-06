@@ -6,23 +6,34 @@ from nltk.probability import FreqDist
 from collections import defaultdict
 from heapq import nlargest
 
+from .models import Portal
+
 stopwords = {'aquelas', '|', 'também', 'essa', 'depois', 'foi', 'ser', 'terá', 'teve', '`', 'este', '}', 'nem', 'tinham', 'me', 'suas', 'tenha', 'às', 'teríamos', 'um', '>', 'são', '(', '_', 'aquela', 'muito', 'quem', 'tivesse', 'à', 'é', 'meu', 'houveremos', 'a', 'nossas', 'tinha', 'foram', 'estiver', 'pelas', 'só', 'houverão', 'esta', 'seja', 'haver', 'estiveram', '#', 'hajam', 'esses', 'ele', 'por', 'de', 'fora', 'em', 'e', 'fosse', 'hão', 'houveria', 'teremos', 'fomos', '*', 'aos', '/', '%', 'estavam', 'houvermos', '=', 'não', 'fôramos', 'hajamos', 'houverá', 'tivéramos', '<', 'éramos', 'com', 'houver', 'serão', 'já', ';', 'qual', 'seria', 'os', 'tenhamos', 'tínhamos', 'das', 'que', 'está', 'estive', 'estes', '[', 'estejamos', 'nos', 'sou', 'tua', 'nossos', 'seriam', ':', 'aquilo', 'até', 'estão', 'no', '?', ')', 'tu', 'nós', '.', 'sem', 'houveríamos', '\\', 'elas', 'vocês', 'tiveram', 'vos', 'houvemos', 'teus', 'eram', 'esse', 'aquele', 'essas', 'estiverem', 'dele', 'fossem', 'se', 'na', 'o', 'como', 'estivermos', 'será', 'estivessem', 'tiverem', 'forem', 'sejamos', 'houverem', 'temos', 'estava', 'uma', '+', 'numa', 'era', ']', 'tivessem', 'lhe', 'seremos', 'tenho', 'houveram', 'tivermos', 'mesmo', 'houve', 'houvesse', 'estou', 'estas', 'esteja', 'nosso', 'havemos', 'haja', 'mas', 'sejam', 'lhes', 'você', 'esteve', 'terão', 'formos', 'nossa', 'tém', '~', 'sua', 'ela', '$', 'quando', 'fôssemos', '"', '&', 'terei', 'houverei', 'pelo', 'estivemos', 'minhas', 'do', 'teriam', 'deles', 'pela', 'entre', 'eles', 'somos', '^', 'estivéramos', 'estávamos', 'tiver', 'teria', 'delas', '-', "'", 'pelos', 'mais', '{', 'minha', 'seríamos', 'num', 'estejam', 'isso', 'te', 'tivera', 'houvéramos', 'tive', 'for', 'estar', 'houvéssemos', '!', 'estamos', 'seu', 'há', 'houvera', ',', 'estivéssemos', 'tivéssemos', 'para', 'nas', 'ou', '@', 'as', 'dela', 'dos', 'da', 'houvessem', 'teu', 'seus', 'tuas', 'fui', 'tem', 'eu', 'houveriam', 'tivemos', 'aqueles', 'hei', 'estivera', 'tenham', 'serei', 'estivesse', 'ao', 'meus', 'isto'}
 
 retirar=["Crédito,","Foto:","VEJA A COBERTURA COMPLETA","Luce Costa"]
-parametro={"cnn":'div[class^=post__content]',"bbc":'main',"g1":'div[class^=mc-article-body]',"r7":'article[class^=toolkit-media-content]',"uol":'div[class^=text]'}
-
+#parametro={"cnn":'div[class^=post__content]',"bbc":'main',"g1":'div[class^=mc-article-body]',"r7":'article[class^=toolkit-media-content]',"uol":'div[class^=text]'}
+    
 def resumir(link1):
+    data = list(Portal.objects.values())
+    dicio = {}
+
+    for i in range(len(data)):
+        aux = data[i]
+        dicio[aux['nomePortal']] = aux['filtroTexto']
+
     try:
         link = Request(link1,
                     headers={'User-Agent': ""})
         pagina = urlopen(link).read().decode('utf-8', 'ignore')
 
         soup = BeautifulSoup(pagina, "lxml")
-        for i in parametro:
+
+        for i in dicio:
             if(i in link1):
-                for paragraph in soup.select(parametro[i]):
+                for paragraph in soup.select(dicio[i]):
                     texto=paragraph.find_all('p')
                 break
+
         aux=0
         full_text=[]
         texto1=''
@@ -38,10 +49,12 @@ def resumir(link1):
             texto1=texto1+i
 
         sentencas = sent_tokenize(texto1)
+        print('teste')
         palavras = word_tokenize(texto1.lower())
         
         palavras_sem_stopwords = [palavra for palavra in palavras if palavra not in stopwords]
         palavras_sem=[]
+        
         for w in palavras:
             if w not in stopwords:
                 palavras_sem.append(w)
@@ -60,7 +73,7 @@ def resumir(link1):
         resumo_texto=''
         for i in sorted(idx_sentencas_importantes):
                 resumo_texto=resumo_texto + sentencas[i]
-            
+
         return resumo_texto
     except:
         return 'Não foi possível resumir esta URL, verifique-a.'
