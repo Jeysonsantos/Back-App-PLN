@@ -49,7 +49,6 @@ def resumir(link1):
             texto1=texto1+i
 
         sentencas = sent_tokenize(texto1)
-        print('teste')
         palavras = word_tokenize(texto1.lower())
         
         palavras_sem_stopwords = [palavra for palavra in palavras if palavra not in stopwords]
