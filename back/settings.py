@@ -28,12 +28,14 @@ SECRET_KEY = 'django-insecure-yjd^lgq2=9nzct-$iim_5gbve95s@%cpl-m(!pz-l5d!zp9h)(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-#DEGUB = True
-DEBUG = config('DEBUG', cast=bool,default=False)
+DEGUB = True
+# DEBUG = config('DEBUG', cast=bool,default=False)
 
-ALLOWED_HOSTS = ['https://back-app-pln.herokuapp.com/',
+ALLOWED_HOSTS = [
+'https://back-app-pln.herokuapp.com/',
 "http://localhost:4200/",
-"http://127.0.0.1:8000/","*",
+"http://127.0.0.1:8000/",
+"*",
 ]
 
 
@@ -52,6 +54,7 @@ INSTALLED_APPS = [
     'bs4',
     'nltk',
 ]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -61,7 +64,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "corsheaders.middleware.CorsMiddleware",
-    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'back.urls'
@@ -141,5 +143,5 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "https://front-app-pln.herokuapp.com",
 ]
-
+    
 django_on_heroku.settings(locals())
