@@ -1,4 +1,4 @@
-from rest_framework.decorators import action,api_view
+from rest_framework.decorators import api_view
 from .resumir import resumir
 from rest_framework import viewsets
 from .serializers import TextoSerializer
