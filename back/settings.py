@@ -13,8 +13,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from distutils.debug import DEBUG
 from email.policy import default
 from pathlib import Path
-#import django_on_heroku
-#from decouple import config
+import django_on_heroku
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,8 +28,8 @@ SECRET_KEY = 'django-insecure-yjd^lgq2=9nzct-$iim_5gbve95s@%cpl-m(!pz-l5d!zp9h)(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEGUB = True
-#DEBUG = config('DEBUG', cast=bool,default=False)
+#DEGUB = True
+DEBUG = config('DEBUG', cast=bool,default=False)
 
 ALLOWED_HOSTS = [
 'https://back-app-pln.herokuapp.com/',
@@ -144,4 +144,4 @@ CORS_ALLOWED_ORIGINS = [
     "https://front-app-pln.herokuapp.com",
 ]
     
-#django_on_heroku.settings(locals())
+django_on_heroku.settings(locals())
