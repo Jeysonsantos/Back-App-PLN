@@ -144,4 +144,4 @@ CORS_ALLOWED_ORIGINS = [
     "https://front-app-pln.herokuapp.com",
 ]
     
-django_on_heroku.settings(locals())
+# django_on_heroku.settings(locals())

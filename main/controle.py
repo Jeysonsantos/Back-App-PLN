@@ -1,8 +1,10 @@
+from main.encontrartag import encontrar_tag_para_resumir
 from main.models import Portal
 
+
 def verificar_nome_portal(link):
-    link_separado = link.split('.')    
-    portal_coletado = link_separado[1]    
+    link_separado = link.split('.')
+    portal_coletado = link_separado[1]
     if (portal_coletado != 'com'):
         portal_filtrado = portal_coletado
     else:
@@ -11,7 +13,8 @@ def verificar_nome_portal(link):
         portal_filtrado = portal_coletado[1]
     return portal_filtrado
 
-def consultar_banco(portal_filtrado):
+
+def consultar_banco(link, portal_filtrado):
     query_coletado = []
     if (Portal.objects.filter(nomePortal=portal_filtrado)):
         query_coletado = Portal.objects.filter(
@@ -19,7 +22,7 @@ def consultar_banco(portal_filtrado):
 
     else:
         Portal.objects.create(
-            nomePortal=portal_filtrado, filtroTexto='teste')
+            nomePortal=portal_filtrado, filtroTexto=encontrar_tag_para_resumir(link))
         query_coletado = Portal.objects.filter(
             nomePortal=portal_filtrado).values()
 
