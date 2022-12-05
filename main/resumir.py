@@ -14,12 +14,12 @@ stopwords = {'aquelas', '|', 'também', 'essa', 'depois', 'foi', 'ser', 'terá',
 
 retirar=["Crédito,","Foto:","VEJA A COBERTURA COMPLETA","Luce Costa","Leia mais","fique por dentro","Por g1","Do R7"]
 
-def resumir(link1):
+def resumir(link):
     try:
-        portal_filtrado = verificar_nome_portal(link1)
-        tag_coletada = consultar_banco(link1, portal_filtrado)
+        portal_filtrado = verificar_nome_portal(link)
+        tag_coletada = consultar_banco(link, portal_filtrado)
 
-        link = Request(link1,
+        link = Request(link,
                     headers={'User-Agent': ""})
         pagina = urlopen(link).read().decode('utf-8', 'ignore')
 
@@ -75,14 +75,16 @@ def resumir(link1):
         return 'Não foi possível resumir esta URL, verifique-a.'
 
 
-link="https://www.cnnbrasil.com.br/internacional/exclusivo-cnn-autoridade-dos-eua-diz-que-russia-esta-queimando-suas-armas-de-alta-tecnologia-na-ucrania/"
+link1="https://www.cnnbrasil.com.br/internacional/exclusivo-cnn-autoridade-dos-eua-diz-que-russia-esta-queimando-suas-armas-de-alta-tecnologia-na-ucrania/"
 
-link1="https://www.bbc.com/portuguese/geral-63317987"
+# https://jovempan.com.br/noticias/brasil/incendio-florestal-atinge-morro-em-copacabana-no-rio-de-janeiro.html
 
-link2="https://g1.globo.com/al/alagoas/eleicoes/2022/noticia/2022/10/20/ipec-em-al-paulo-dantas-tem-49percent-e-rodrigo-cunha-40percent.ghtml"
+link2="https://www.bbc.com/portuguese/geral-63317987"
 
-link3="https://noticias.r7.com/eleicoes-2022/fachin-nega-liminar-de-aras-para-derrubar-resolucao-que-da-poder-a-moraes-para-remover-postagens-22102022"
+link3="https://g1.globo.com/al/alagoas/eleicoes/2022/noticia/2022/10/20/ipec-em-al-paulo-dantas-tem-49percent-e-rodrigo-cunha-40percent.ghtml"
+
+link4="https://noticias.r7.com/eleicoes-2022/fachin-nega-liminar-de-aras-para-derrubar-resolucao-que-da-poder-a-moraes-para-remover-postagens-22102022"
 
 link5="https://www.correiobraziliense.com.br/esportes/2022/12/5056594-provocado-pelo-reporter-thiago-silva-tite-banca-neymar-contra-a-coreia.html"
 
-resumir(link)
+resumir(link1)
