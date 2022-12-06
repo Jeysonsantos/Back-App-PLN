@@ -76,15 +76,18 @@ def resumir(link):
 
 
 link1="https://www.cnnbrasil.com.br/internacional/exclusivo-cnn-autoridade-dos-eua-diz-que-russia-esta-queimando-suas-armas-de-alta-tecnologia-na-ucrania/"
+#tag cnn: div[class^=post__content]
 
 # https://jovempan.com.br/noticias/brasil/incendio-florestal-atinge-morro-em-copacabana-no-rio-de-janeiro.html
 
 link2="https://www.bbc.com/portuguese/geral-63317987"
-
+# tag bbc: main
 link3="https://g1.globo.com/al/alagoas/eleicoes/2022/noticia/2022/10/20/ipec-em-al-paulo-dantas-tem-49percent-e-rodrigo-cunha-40percent.ghtml"
-
+# tag g1: div[class^=mc-article-body]
 link4="https://noticias.r7.com/eleicoes-2022/fachin-nega-liminar-de-aras-para-derrubar-resolucao-que-da-poder-a-moraes-para-remover-postagens-22102022"
-
+# tag r7: article[class^=toolkit-media-content]
 link5="https://www.correiobraziliense.com.br/esportes/2022/12/5056594-provocado-pelo-reporter-thiago-silva-tite-banca-neymar-contra-a-coreia.html"
-
+# tag correiobraziliense: article[class^="article"]
+link6="https://noticias.uol.com.br/politica/ultimas-noticias/2022/12/05/tarcisio-de-freitas-bolsonarismo.htm"
+# tag uol: div[class^=text]
 resumir(link1)

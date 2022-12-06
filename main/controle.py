@@ -24,7 +24,6 @@ def verificar_nome_portal(link):
         portal_coletado = link_separado[index-1]
     else:
         for string in link_separado:
-            print(string)
             if 'com' in string:
                 index = link_separado.index(string)
                 portal_coletado = link_separado[index-1]
