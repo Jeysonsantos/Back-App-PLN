@@ -15,7 +15,3 @@ def create(request):
         return Response(serializer.data)
     else:
         return Response(serializer.errors)
-
-
-
-    

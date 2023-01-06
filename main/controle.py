@@ -8,7 +8,7 @@ quantidade_paragrafos_por_tag = {}
 
 # ------------------------------------------------------------------------------------------------
 
-def verificar_nome_portal(link):
+def filtrar_nome_portal(link):
 
     # DADO UM LINK, RETORNA O NUCLEO DO LINK. EX: www.cnn.com.br -> retorna 'cnn'
 
@@ -45,7 +45,7 @@ def consultar_banco(link, portal_filtrado):
 
     else:
         Portal.objects.create(
-            nomePortal=portal_filtrado, filtroTexto=encontrar_tag_para_resumir(link))
+            nomePortal=portal_filtrado, filtroTexto=filtrar_tag(link))
         query_coletado = Portal.objects.filter(
             nomePortal=portal_filtrado).values()
 
@@ -78,16 +78,16 @@ def consultar_banco(link, portal_filtrado):
 # ------------------------------------------------------------------------------------------------
 
 
-def encontre(pagina):
+def encontrar_tag_primaria(pagina):
 
     # RETORNA A TAG MAIN OU ARTICLE, QUE GERALMENTE OS TEXTOS FICAM DENTRO
 
     if '<main' in pagina:
-        localizador = "main"
+        tag = "main"
     elif '<article' in pagina:
-        localizador = "article"
+        tag = "article"
 
-    return localizador
+    return tag
 
 # ------------------------------------------------------------------------------------------------
 
@@ -226,26 +226,26 @@ def quant_paragraph(tag):
 # ------------------------------------------------------------------------------------------------
 
 
-def encontrar_tag_para_resumir(link):
+def filtrar_tag(link):
     link1 = Request(link,
                     headers={'User-Agent': ""})
     pagina = urlopen(link1).read().decode('utf-8', 'ignore')
 
-    soup = BeautifulSoup(pagina, "lxml")
+    # soup = BeautifulSoup(pagina, "lxml")
 
     global dicio_nucleo_tag
     dicio_nucleo_tag = {}
-    # nucleo = nucleo_link(link)
-    nucleo = verificar_nome_portal(link)
-    cara = encontre(pagina)
-    dicio_nucleo_tag[nucleo] = cara
+    nome_portal = filtrar_nome_portal(link)
+    tag_primaria = encontrar_tag_primaria(pagina)
 
-    for i in dicio_nucleo_tag:
-        if (i in link):
-            for paragraph in soup.select(dicio_nucleo_tag[i]):
-                num_p(paragraph)
-                result_final(paragraph, quantidade_paragrafos_por_tag)
-                quant_p_geral_por_tag(paragraph)
-            break
+    return tag_primaria
+    # dicio_nucleo_tag[nome_portal] = tag
 
-    return dicio_nucleo_tag[nucleo]
+    # for i in dicio_nucleo_tag:
+    #     if (i in link):
+    #         for paragraph in soup.select(dicio_nucleo_tag[i]):
+    #             num_p(paragraph)
+    #             result_final(paragraph, quantidade_paragrafos_por_tag)
+    #             quant_p_geral_por_tag(paragraph)
+    #         break
+    # return dicio_nucleo_tag[nome_portal]

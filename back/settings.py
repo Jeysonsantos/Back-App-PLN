@@ -10,15 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from distutils.debug import DEBUG
-from email.policy import default
+# from distutils.debug import DEBUG
+# from email.policy import default
 from pathlib import Path
-import django_on_heroku
-from decouple import config
+import os
+# import django_on_heroku
+# from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -28,16 +28,10 @@ SECRET_KEY = 'django-insecure-yjd^lgq2=9nzct-$iim_5gbve95s@%cpl-m(!pz-l5d!zp9h)(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-#DEGUB = True
-DEBUG = config('DEBUG', cast=bool,default=False)
+DEGUB = True
+# DEBUG = config('DEBUG', cast=bool,default=False)
 
-ALLOWED_HOSTS = [
-'https://back-app-pln.herokuapp.com/',
-"http://localhost:4200/",
-"http://127.0.0.1:8000/",
-"*",
-]
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -132,7 +126,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_ROOT= os.path.join(BASE_DIR,'/static')
+
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -141,7 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
-    "https://front-app-pln.herokuapp.com",
+    # "https://front-app-pln.herokuapp.com",
 ]
     
 # django_on_heroku.settings(locals())
